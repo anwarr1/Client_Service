@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body>
+<h1>Client Registration Form</h1>
+<form action="/client" method="get">
+    <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+    </div>
+    <div>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" pattern="\d{10}" title="Phone number should be 10 digits" required>
+    </div>
+    <button type="submit">Register</button>
+
+</form>
+</body>
+</html>
