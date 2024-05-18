@@ -47,5 +47,4 @@ public class AgentController {
             // Redirection vers une page de confirmation ou une autre page après l'ajout
             return "client";
         }
-
 }
