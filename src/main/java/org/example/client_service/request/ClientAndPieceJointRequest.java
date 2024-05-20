@@ -1,17 +1,15 @@
 package org.example.client_service.request;
 
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.client_service.models.Client;
-import org.example.client_service.models.PieceJointe;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @Getter
 @Setter
 public class ClientAndPieceJointRequest {
     Client client;
-    PieceJointe pieceJointe;
+    MultipartFile imageUrl;
 }

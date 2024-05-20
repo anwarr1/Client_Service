@@ -34,9 +34,7 @@ public class AgentService {
         return "";
     }
 
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
-    }
+
 
     public Boolean deleteClient(Client client) {
         return true;

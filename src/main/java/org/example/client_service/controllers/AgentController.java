@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/agent")
@@ -28,16 +27,8 @@ public class AgentController {
         }
     }
 
-    @GetMapping("/list-clients")
-    public ResponseEntity<List<Client>> getClients(
-
-    ) {
-
-        return ResponseEntity.ok(agentService.getAllClients());
-    }
-
     @DeleteMapping("/delete-client")
-    public ResponseEntity<Boolean> deleteAgent(
+    public ResponseEntity<Boolean> deleteClient(
             @RequestBody Client client
     ) {
 
