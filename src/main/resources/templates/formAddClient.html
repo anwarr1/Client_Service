@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Client Registration Form</h1>
-<form action="/client" method="get">
+<form action="/client" method="post">
     <div>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required>
@@ -17,8 +17,24 @@
     </div>
     <div>
         <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" pattern="\d{10}" title="Phone number should be 10 digits" required>
+        <input type="text" id="phoneNumber" name="phoneNumber" required>
     </div>
+    <div>
+        <label for="email">Phone Number:</label>
+        <input type="email" id="email" name="email">
+    </div>
+    <div>
+        <label for="plafond">Phone Number:</label>
+        <input type="text" id="plafond" name="plafond">
+    </div>
+   <!-- <div>
+        <label for="cinFront">CIN Front:</label>
+        <input type="file" id="cinFront" name="cinFront" required>
+    </div>
+    <div>
+        <label for="cinBack">CIN Back:</label>
+        <input type="file" id="cinBack" name="cinBack" required>
+    </div>-->
     <button type="submit">Register</button>
 
 </form>

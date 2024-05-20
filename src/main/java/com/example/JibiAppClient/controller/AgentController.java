@@ -1,24 +1,36 @@
 package com.example.JibiAppClient.controller;
 
+import com.example.JibiAppClient.model.Agent;
+import com.example.JibiAppClient.model.Client;
 import com.example.JibiAppClient.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 
-@org.springframework.stereotype.Controller
+@RestController
+@RequestMapping("/api2")
+//@org.springframework.stereotype.Controller
 public class AgentController {
     @Autowired
     private AgentService agentService ;
 
-    @GetMapping("/")
-    public String PageAgentAuth(){
-        return "agentAuth";
+    public AgentController(AgentService agentService){
+        this.agentService = agentService;
     }
 
-    @GetMapping("/authenticate")
+    /*@GetMapping("/")
+    public String PageAgentAuth(){
+        return "agentAuth";
+    }*/
+
+    //avec @Controller
+    /*@GetMapping("/authenticate")
 
     public  String AgentInfosVerification(@RequestParam String username, @RequestParam String password){
         Boolean AgentExist = agentService.agentExists(username,password);
@@ -28,24 +40,32 @@ public class AgentController {
 
         }
         else return "pageErreur";
+    }*/
+
+    //Avec RestController
+    @GetMapping("/authenticate")
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean AgentInfosVerification(@RequestParam String username, @RequestParam String password) {
+        Boolean AgentExist = agentService.agentExists(username, password);
+        System.out.println(AgentExist);
+        return AgentExist;
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Agent> getAllAgents(){
+        return agentService.getAllAgents();
     }
 
 
-    @GetMapping("/formc")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAgent(@PathVariable String id ){
+        agentService.deleteAgent(Long.parseLong(id));
+    }
+    /*@GetMapping("/formc")
     public String ClientRegistration(){
         return "formAddClient";
-    }
-    @GetMapping("/client")
-    public String Clientespace(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber, Model model) {
+    }*/
 
-            // Ajouter les données récupérées à l'objet Model
-            model.addAttribute("firstName", firstName);
-            model.addAttribute("lastName", lastName);
-            model.addAttribute("phoneNumber", phoneNumber);
-
-            // Traitement pour ajouter l'agent à la base de données
-            // Vous pouvez appeler votre service pour traiter l'ajout de l'agent
-            // Redirection vers une page de confirmation ou une autre page après l'ajout
-            return "client";
-        }
 }

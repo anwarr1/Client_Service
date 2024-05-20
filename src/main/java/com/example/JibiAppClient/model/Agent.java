@@ -14,7 +14,6 @@ import java.net.URL;
     public class Agent {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-
         private Long agent_id;
 
         @NotBlank(message = "First name is mandatory")
