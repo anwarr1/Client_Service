@@ -1,6 +1,7 @@
 package org.example.client_service.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.example.client_service.config.GeneratePassword;
 import org.example.client_service.models.Agent;
 import org.example.client_service.models.Client;
 import org.example.client_service.repository.AgentRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+
 @Service
 public class AgentService {
 
@@ -16,16 +18,19 @@ public class AgentService {
     public AgentRepository agentRepository;
     SmsSender smsSender;
 
+    public AgentService(ClientRepository clientRepository, AgentRepository agentRepository, SmsSender smsSender) {
+        this.clientRepository = clientRepository;
+        this.agentRepository = agentRepository;
+        this.smsSender = smsSender;
+    }
+
     // Fonction to register client
     public Client createClient(Client client) throws IOException {
-        client.setPassword(generateTemporaryPassword());
+        client.setPassword(GeneratePassword.generateTemporaryPassword());
         smsSender.sendSms(client.getTelephone(), "your temp password is : " + client.getPassword());
         return clientRepository.save(client);
     }
 
-    private String generateTemporaryPassword() {
-        return RandomStringUtils.randomAlphanumeric(8);
-    }
 
     public String generateUniqueId() {
         return "";

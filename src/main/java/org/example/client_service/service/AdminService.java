@@ -1,5 +1,6 @@
 package org.example.client_service.service;
 
+import org.example.client_service.config.GeneratePassword;
 import org.example.client_service.models.Agence;
 import org.example.client_service.models.Agent;
 import org.example.client_service.repository.AgenceRepository;
@@ -13,9 +14,17 @@ public class AdminService {
     public AgentRepository agentRepository;
     AgenceRepository agenceRepository;
 
+    public AdminService(AgentRepository agentRepository, AgenceRepository agenceRepository) {
+        this.agentRepository = agentRepository;
+        this.agenceRepository = agenceRepository;
+    }
+
     public Agent createAgent(Agent agent) {
 
+        agent.setPassword(GeneratePassword.generateTemporaryPassword());
+        agent.setUsername(agent.getEmail());
         return agentRepository.save(agent);
+
     }
 
     public Agence createAgence(Agence agence) {

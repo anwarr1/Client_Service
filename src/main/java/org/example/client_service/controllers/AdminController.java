@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     AdminService adminService;
 
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
+
+//   Tested
     @PostMapping("/create-agent")
     public ResponseEntity<Agent> createAgent(
             @RequestBody Agent agent
@@ -19,13 +24,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.createAgent(agent));
     }
 
-    @PostMapping("/create-agence")
-    public ResponseEntity<Agence> createAgence(
-            @RequestBody Agence agence
-    ) {
 
-        return ResponseEntity.ok(adminService.createAgence(agence));
-    }
 
     @DeleteMapping("/delete-agent")
     public void deleteAgent(
@@ -35,12 +34,6 @@ public class AdminController {
         adminService.deleteAgent(agent);
     }
 
-    @DeleteMapping("/delete-agence")
-    public void deleteAgence(
-            @RequestBody Agence agence
-    ) {
 
-        adminService.deleteAgence(agence);
-    }
 
 }

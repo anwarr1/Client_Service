@@ -14,18 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 public class Agent extends User {
-    String firstName;
-    String lastName;
-    String email;
 
-    String telephone;
     String num_piece_identite;
     String num_immatriculation;
     String num_patente;
     Date date_naissance;
     Boolean is_first_time;
-    String username;
-    String password;
+
 //    @OneToMany
 //    List<PieceJointe> pieces_jointes;
 

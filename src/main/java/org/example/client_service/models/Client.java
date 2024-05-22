@@ -1,5 +1,6 @@
 package org.example.client_service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -16,11 +17,14 @@ import java.util.List;
 @Getter
 @Setter
 public class Client extends User {
-    String telephone;
+
     Boolean is_first_time = true;
     @OneToOne
     ComptePaiement comptePaiement;
 //    @OneToMany(cascade = CascadeType.ALL)
 //    List<PieceJointe> pieces_jointes = new ArrayList<>();
+
+    @OneToOne
+    OTPToken otpToken;
 
 }
