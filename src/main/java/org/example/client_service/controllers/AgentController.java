@@ -5,7 +5,6 @@ import org.example.client_service.service.AgentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -16,14 +15,13 @@ public class AgentController {
 
     @PostMapping("/create-client")
 
-    public ResponseEntity<Boolean> createClient(
-            @RequestPart("client") Client client,
-            @RequestPart("imageFile") MultipartFile imageFile) {
+    public ResponseEntity<Client> createClient(
+            @RequestPart("client") Client client) {
         try {
-            Boolean result = agentService.createClientAndPieceJoint(client, imageFile);
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
+            Client result = agentService.createClient(client);
+            return ResponseEntity.ok(result);
         } catch (IOException e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(500).body(null);
         }
     }
 
@@ -33,6 +31,14 @@ public class AgentController {
     ) {
 
         return ResponseEntity.ok(agentService.deleteClient(client));
+    }
+
+    @GetMapping("/authenticate")
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean AgentInfosVerification(@RequestParam String username, @RequestParam String password) {
+        Boolean AgentExist = agentService.agentExists(username, password);
+        System.out.println(AgentExist);
+        return AgentExist;
     }
 
 }

@@ -20,7 +20,7 @@ public class Client extends User {
     Boolean is_first_time = true;
     @OneToOne
     ComptePaiement comptePaiement;
-    @OneToMany(cascade = CascadeType.ALL)
-    List<PieceJointe> pieces_jointes = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    List<PieceJointe> pieces_jointes = new ArrayList<>();
 
 }
