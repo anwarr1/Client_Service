@@ -1,5 +1,6 @@
 package org.example.client_service.models;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@DiscriminatorValue("agent")
 public class Agent extends User {
 
     String num_piece_identite;

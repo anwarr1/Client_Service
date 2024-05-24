@@ -1,8 +1,9 @@
 package org.example.client_service.controllers;
 
-import org.example.client_service.models.Agence;
+
 import org.example.client_service.models.Agent;
 import org.example.client_service.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     AdminService adminService;
 
+   @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }

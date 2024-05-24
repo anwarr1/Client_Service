@@ -27,7 +27,9 @@ public class AgentService {
     // Fonction to register client
     public Client createClient(Client client) throws IOException {
         client.setPassword(GeneratePassword.generateTemporaryPassword());
+
         smsSender.sendSms(client.getTelephone(), "your temp password is : " + client.getPassword());
+        System.out.println("Ana id: "+client.getId());
         return clientRepository.save(client);
     }
 

@@ -1,9 +1,8 @@
 package org.example.client_service.service;
 
 import org.example.client_service.config.GeneratePassword;
-import org.example.client_service.models.Agence;
+
 import org.example.client_service.models.Agent;
-import org.example.client_service.repository.AgenceRepository;
 import org.example.client_service.repository.AgentRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +11,9 @@ import java.util.List;
 @Service
 public class AdminService {
     public AgentRepository agentRepository;
-    AgenceRepository agenceRepository;
 
-    public AdminService(AgentRepository agentRepository, AgenceRepository agenceRepository) {
+    public AdminService(AgentRepository agentRepository) {
         this.agentRepository = agentRepository;
-        this.agenceRepository = agenceRepository;
     }
 
     public Agent createAgent(Agent agent) {
@@ -27,11 +24,11 @@ public class AdminService {
 
     }
 
-    public Agence createAgence(Agence agence) {
-
-        return
-                agenceRepository.save(agence);
-    }
+//    public Agence createAgence(Agence agence) {
+//
+//        return
+//                agenceRepository.save(agence);
+//    }
 
     ;
 
@@ -53,9 +50,9 @@ public class AdminService {
 
     }
 
-    public void deleteAgence(Agence agence) {
-        agenceRepository.delete(agence);
-    }
+//    public void deleteAgence(Agence agence) {
+//        agenceRepository.delete(agence);
+//    }
 
     public List<Agent> getAllAgents() {
         return agentRepository.findAll();

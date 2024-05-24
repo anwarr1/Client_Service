@@ -1,19 +1,25 @@
 package org.example.client_service.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
+@DiscriminatorColumn(name = "user_type")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String firstName;
     private String lastName;
     @Column(nullable = true)
@@ -23,6 +29,8 @@ public class User {
 
     private String username;
     private String password;
+
+    private LocalDate createdDate;
 
 
 //    @Override

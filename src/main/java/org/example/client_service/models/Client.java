@@ -1,30 +1,48 @@
 package org.example.client_service.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@DiscriminatorValue("client")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Client extends User {
 
     Boolean is_first_time = true;
     @OneToOne
-    ComptePaiement comptePaiement;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    List<PieceJointe> pieces_jointes = new ArrayList<>();
-
-    @OneToOne
     OTPToken otpToken;
+
+    @OneToOne(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private ComptePaiement comptePaiement;
+
+    private Date birthdate;
+    private String commercialRn;
+    private String patent;
+    private String address;
+    private String cin;
+
+    private LocalDate createdDate;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+//    @JsonManagedReference
+    private Bank bank;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference
+    private List<BankAccount> bankAccounts;
 
 }

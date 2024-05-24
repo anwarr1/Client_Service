@@ -1,6 +1,6 @@
 package org.example.client_service.service;
 
-import org.example.client_service.models.servicesAgence.FactureServiceAgence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
