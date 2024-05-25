@@ -47,7 +47,7 @@ public class AgentService {
     }
 
     public boolean agentExists(String username, String password) {
-        Agent agent = agentRepository.findByUsernameAndPassword(username, password);
+        Agent agent = agentRepository.findByEmailAndPassword(username, password);
         System.out.println("agent trouver est :" + agent);
         if (agent != null) {
             return true;

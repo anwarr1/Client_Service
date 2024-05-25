@@ -23,6 +23,11 @@ public class Agent extends User {
     Date date_naissance;
     Boolean is_first_time;
 
+
+    // other methods...
+
+
+
 //    @OneToMany
 //    List<PieceJointe> pieces_jointes;
 

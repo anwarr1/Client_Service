@@ -19,7 +19,7 @@ public class AdminService {
     public Agent createAgent(Agent agent) {
 
         agent.setPassword(GeneratePassword.generateTemporaryPassword());
-        agent.setUsername(agent.getEmail());
+        agent.setEmail(agent.getEmail());
         return agentRepository.save(agent);
 
     }

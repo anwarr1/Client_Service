@@ -65,8 +65,8 @@ public class AgentController {
 
     @GetMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean AgentInfosVerification(@RequestParam String username, @RequestParam String password) {
-        Boolean AgentExist = agentService.agentExists(username, password);
+    public Boolean AgentInfosVerification(@RequestParam String email, @RequestParam String password) {
+        Boolean AgentExist = agentService.agentExists(email, password);
         System.out.println(AgentExist);
         return AgentExist;
     }
