@@ -51,8 +51,8 @@ public class CmiController {
         return ResponseEntity.ok(impayes);
     }
 
-    @PostMapping("/confirmePayer")
-    public boolean confirmePayer(@RequestParam Long impayeId, @RequestParam String phoneNumber) {
+    @PostMapping("/confirmePayer/{impayeId}/{phoneNumber}")
+    public boolean confirmePayer(@PathVariable Long impayeId, @PathVariable String phoneNumber) {
         return cmiService.confirmePayer(impayeId, phoneNumber);
     }
 }

@@ -1,20 +1,22 @@
 package org.example.client_service.service;
 
 
+import org.example.client_service.models.Impaye;
+import org.example.client_service.repository.ImpayeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class ImpayeService {
 
-    public Map<String, Object> getImpayesByDebtCode(Long debtCode) {
-        // Logique pour récupérer les impayés basé sur le code de la créance
-        return Map.of(
-                "impayeType", "simple",
-                "amount", 100.0,
-                "penalty", 10.0,
-                "fees", 5.0
-        );
+    @Autowired
+    private  ImpayeRepository impayeRepository;
+
+    public List<Impaye> findCreanceImpayes(Long creanceId, Long clientId) {
+        return impayeRepository.findByCreance(creanceId,clientId);
     }
+
 }

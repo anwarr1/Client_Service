@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/paiement")
+@CrossOrigin(origins= "http://localhost:4200")
 @AllArgsConstructor
 public class PaiementController {
 
@@ -30,9 +31,10 @@ public class PaiementController {
     }
 
     @PostMapping("/confirmer")
-    public ResponseEntity<?> confirmerPaiement(@RequestParam Long factureId, @RequestParam String phoneNumber) {
+    public ResponseEntity<?> confirmerPaiement(@RequestParam("id_impaye") Long factureId, @RequestParam("phone") String phoneNumber) {
         try {
-            Transaction transaction = paymentService.confirmerPaiementAcc(factureId, phoneNumber);
+            System.out.println("+"+"phoneNumber: " + phoneNumber + "factureId: " + factureId);
+            Transaction transaction = paymentService.confirmerPaiementAcc(factureId,"+"+phoneNumber);
             return ResponseEntity.ok(transaction);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

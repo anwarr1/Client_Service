@@ -30,7 +30,6 @@ public class ComptePaiement {
     @JsonBackReference
     private Client client;
 
-
     private double accountBalance;
     private LocalDate createdDate;
     private String bankName;

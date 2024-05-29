@@ -39,4 +39,5 @@ public class BankController {
     public void deleteBank(@PathVariable Long id) {
         bankService.deleteBank(id);
     }
+
 }

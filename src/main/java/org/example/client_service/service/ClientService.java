@@ -49,5 +49,7 @@ public class ClientService {
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
     }
-
+    public Client ClientExist(String username,String password){
+        return clientRepository.findByEmailAndPassword(username,password);
+    }
 }

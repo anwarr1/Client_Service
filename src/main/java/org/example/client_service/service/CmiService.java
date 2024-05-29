@@ -12,10 +12,11 @@ import java.util.Optional;
 @Service
 public class CmiService {
 
-    public CmiService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository) {
+    public CmiService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository,ClientRepository clientRepository) {
         this.creancierRepository = creancierRepository;
         this.creanceRepository = creanceRepository;
         this.impayeRepository = impayeRepository;
+        this.clientRepository = clientRepository;
     }
 
     private CreancierRepository creancierRepository;

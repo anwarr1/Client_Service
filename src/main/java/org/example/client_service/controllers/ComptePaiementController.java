@@ -8,6 +8,7 @@ import java.util.List;
 import org.example.client_service.dto.PaymentAccountCreationRequest;
 import org.example.client_service.excep.ComptePaiementException;
 import org.example.client_service.models.ComptePaiement;
+import org.example.client_service.repository.ComptePaiementRepository;
 import org.example.client_service.service.ApiResponse;
 import org.example.client_service.service.ComptePaiementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 public class ComptePaiementController {
     @Autowired
     private ComptePaiementService comptePaiementService;
+    @Autowired
+    private ComptePaiementRepository comptePaiementRepository;
 
     public ComptePaiementController() {
     }
@@ -73,4 +76,10 @@ public class ComptePaiementController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Payment account not found: " + var4.getMessage());
         }
     }
+
+    @GetMapping({"/{tel}"})
+    public ComptePaiement getComptePaiementByTel(@PathVariable String tel) {
+        return this.comptePaiementRepository.findByClientTel(tel);
+    }
+
 }

@@ -2,6 +2,7 @@ package org.example.client_service.controllers;
 
 import org.example.client_service.models.Client;
 import org.example.client_service.models.OTPToken;
+import org.example.client_service.repository.ClientRepository;
 import org.example.client_service.service.FactureService;
 import org.example.client_service.service.OtpService;
 import org.example.client_service.service.SmsSender;
@@ -12,16 +13,19 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("api/client")
+@CrossOrigin(origins= "http://localhost:4200")
 public class ClientController {
 
+    private final ClientRepository clientRepository;
     SmsSender smsSender;
     OtpService otpService;
     FactureService factureService;
 
-    public ClientController(SmsSender smsSender, OtpService otpService ,FactureService factureService) {
+    public ClientController(SmsSender smsSender, OtpService otpService , FactureService factureService, ClientRepository clientRepository) {
         this.smsSender = smsSender;
         this.otpService = otpService;
         this.factureService = factureService;
+        this.clientRepository = clientRepository;
     }
 //TESTED
     @PostMapping("/SendVerificationCode")
@@ -39,6 +43,10 @@ public class ClientController {
    @PostMapping("/SendEmail")
     public void SendEmail() throws IOException {
        factureService.sendReminderEmails();
+    }
+   @GetMapping("/getTel/{id}")
+    public String getTelById(@PathVariable Long id){
+        return clientRepository.findTelById(id);
     }
 
 }

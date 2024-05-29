@@ -2,6 +2,7 @@ package org.example.client_service.controllers;
 
 
 import org.example.client_service.models.BankAccount;
+import org.example.client_service.repository.BankAccountRepository;
 import org.example.client_service.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ public class BankAccountController {
 
     @Autowired
     private BankAccountService bankAccountService;
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
 
     @GetMapping
     public List<BankAccount> getAllBankAccounts() {
@@ -38,5 +41,10 @@ public class BankAccountController {
     @DeleteMapping("/{id}")
     public void deleteBankAccount(@PathVariable Long id) {
         bankAccountService.deleteBankAccount(id);
+    }
+
+    @GetMapping("find/{tel}")
+    public BankAccount getBankAccountByTel(@PathVariable String tel) {
+        return bankAccountRepository.findByClientTel(tel);
     }
 }
