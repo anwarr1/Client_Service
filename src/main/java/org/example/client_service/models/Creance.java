@@ -19,6 +19,7 @@ public class Creance {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codeDebt;
     private String debtName;
+
     @ManyToOne
     @JoinColumn(name = "creditor_id")
     @JsonBackReference

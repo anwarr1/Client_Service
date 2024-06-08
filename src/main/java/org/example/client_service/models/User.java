@@ -86,19 +86,21 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", password='" + password + '\'' +
-                ", createdDate=" + createdDate +
-                ", role=" + role +
-                ", tokens=" + (tokens == null ? "null" : tokens.size()) +
-                '}';
-    }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", telephone='" + telephone + '\'' +
+//                ", password='" + password + '\'' +
+//                ", createdDate=" + createdDate +
+//                ", role=" + role +
+//                ", is_first_time=" + is_first_time +
+//                ", tokens=" + tokens +
+//                '}';
+//    }
 }
 

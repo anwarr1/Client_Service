@@ -32,7 +32,6 @@ public class OtpController {
 
     @PostMapping("/{id_client}")
     public void GenerateOtpPayement(@PathVariable Long id_client) {
-
         Optional<Client> clientOptional= clientService.getClientById(id_client);
         if (clientOptional.isPresent()) {
             Client client = clientOptional.get();

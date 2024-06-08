@@ -24,5 +24,9 @@ public class Creancier {
     private List<Creance> listCreances;
     private String image;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "client_id")
+    private Client client;
 
 }

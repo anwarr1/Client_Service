@@ -27,7 +27,10 @@ public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/register",
-            "/api/v1/auth/authenticate"
+            "/api/v1/auth/authenticate",
+            "/api/otp/**",
+            "api/favorite/**",
+            "api/client/**"
 //            "/v2/api-docs",
 //            "/v3/api-docs",
 //            "/v3/api-docs/**",
@@ -45,6 +48,7 @@ public class SecurityConfiguration {
 //            "/reservation/**",
 //            "/location/**",
 //            "/user/**"
+
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

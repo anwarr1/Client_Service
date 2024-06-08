@@ -53,4 +53,7 @@ public class Client extends User {
     @JsonManagedReference
     private List<Impaye> impayes;
 
+    @OneToMany(mappedBy = "client")
+    private List<Creancier> favoriteCreanciers;
+
 }

@@ -10,8 +10,6 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender emailSender;
-
-
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);

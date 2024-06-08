@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
         import org.example.client_service.models.servicesAgence.Facture;
 
+        import java.time.LocalDate;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class Impaye {
     private String description;
     private Double montant;
     private String type;
+    private LocalDate dueDate;
     @ManyToOne
     @JoinColumn(name = "creance_id")
     @JsonBackReference
