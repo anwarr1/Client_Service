@@ -1,6 +1,8 @@
 package org.example.client_service.models.servicesAgence;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +22,8 @@ public class Recharge {
     private double amount;
     private boolean paid;
     private String tel_recharge;
-    @OneToOne
-    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "recap-recharge")
     private Facture recap_recharge;
 }
 

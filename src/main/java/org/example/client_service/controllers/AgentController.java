@@ -38,14 +38,11 @@ public class AgentController {
     //Tested
     @PostMapping("/create-client")
 
-    public ResponseEntity<Client> createClient(
-            @RequestBody Client client) {
-        try {
-            Client result = agentService.createClient(client);
-            return ResponseEntity.ok(result);
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body(null);
-        }
+    public String createClient(
+            @RequestBody Client client) throws IOException {
+             String pwd = agentService.createClient(client);
+            return pwd;
+
     }
 // ouverture compte payement
     @PostMapping("/sendPostRequest")

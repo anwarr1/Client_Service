@@ -1,6 +1,7 @@
 package org.example.client_service.service;
 
 import org.example.client_service.dto.PaymentAccountCreationRequest;
+import org.example.client_service.enums.TypeHissab;
 import org.example.client_service.excep.ComptePaiementException;
 import org.example.client_service.models.Client;
 import org.example.client_service.models.ComptePaiement;
@@ -59,7 +60,13 @@ public class ComptePaiementService {
         comptePaiement.setTypeHissab(request.getTypeHissab());
         comptePaiement.setClient(client);
         comptePaiement.setCreatedDate(LocalDate.now());
-        comptePaiement.setAccountBalance(0.0);
+        if(comptePaiement.getTypeHissab()== TypeHissab.Acc_200){
+            comptePaiement.setAccountBalance(200.0);
+        }else if(comptePaiement.getTypeHissab()== TypeHissab.Acc_5000){
+            comptePaiement.setAccountBalance(5000.0);
+        }else{
+            comptePaiement.setAccountBalance(20000.0);
+        }
         comptePaiement.setPhoneNumber(client.getTelephone());
         client.setComptePaiement(comptePaiement);
 

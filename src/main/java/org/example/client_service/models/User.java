@@ -1,5 +1,7 @@
 package org.example.client_service.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-
 @DiscriminatorColumn(name = "user_type")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +49,6 @@ public class User implements UserDetails {
             is_first_time = true;
         }
     }
-
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
@@ -101,4 +101,3 @@ public class User implements UserDetails {
                 '}';
     }
 }
-

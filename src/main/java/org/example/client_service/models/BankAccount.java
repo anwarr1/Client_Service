@@ -1,6 +1,8 @@
 package org.example.client_service.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,10 +18,9 @@ public class BankAccount {
     private String accountNumber;
     private Double balance;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @JsonBackReference
-
+    @JsonBackReference(value = "bank-account")
     private Client client;
 
     public BankAccount() {

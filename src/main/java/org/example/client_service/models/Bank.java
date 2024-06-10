@@ -1,7 +1,6 @@
 package org.example.client_service.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,8 +17,8 @@ public class Bank {
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "bank")
     private List<Client> clients;
 
 }

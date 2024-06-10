@@ -52,6 +52,8 @@ public class SecurityConfiguration {
             "/cmi/**",
             "/api/paiement/**",
             "/api/otp/**",
+            "/impayes/**",
+            "/api/payment-accounts/**",
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

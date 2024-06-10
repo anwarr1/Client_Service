@@ -6,6 +6,7 @@ import org.example.client_service.models.Agent;
 import org.example.client_service.models.Client;
 import org.example.client_service.repository.AgentRepository;
 import org.example.client_service.repository.ClientRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,21 +17,25 @@ public class AgentService {
 
     public ClientRepository clientRepository;
     public AgentRepository agentRepository;
+    private final PasswordEncoder passwordEncoder;
     SmsSender smsSender;
 
-    public AgentService(ClientRepository clientRepository, AgentRepository agentRepository, SmsSender smsSender) {
+    public AgentService(ClientRepository clientRepository, AgentRepository agentRepository, SmsSender smsSender,PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;
         this.agentRepository = agentRepository;
+        this.passwordEncoder= passwordEncoder;
         this.smsSender = smsSender;
     }
 
     // Fonction to register client
-    public Client createClient(Client client) throws IOException {
-        client.setPassword(GeneratePassword.generateTemporaryPassword());
+    public String createClient(Client client) throws IOException {
+        String pwd= GeneratePassword.generateTemporaryPassword();
+        client.setPassword(passwordEncoder.encode(pwd));
 
         smsSender.sendSms(client.getTelephone(), "your temp password is : " + client.getPassword());
-        System.out.println("Ana id: "+client.getId());
-        return clientRepository.save(client);
+        System.out.println(pwd);
+        clientRepository.save(client);
+        return pwd;
     }
 
 

@@ -59,4 +59,14 @@ public class ClientController {
         return client.get().getId();
     }
 
+    @GetMapping("/getClient/{id}")
+    public Optional<Client> getClientById(@PathVariable Long id){
+        return clientRepository.findById(id);
+    }
+
+   @PutMapping("/update")
+    public Client Update(@RequestBody Client client) {
+        return clientRepository.save(client);
+    }
+
 }

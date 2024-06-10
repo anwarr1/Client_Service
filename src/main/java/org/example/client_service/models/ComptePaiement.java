@@ -1,7 +1,9 @@
 package org.example.client_service.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.client_service.enums.TypeHissab;
@@ -25,10 +27,11 @@ public class ComptePaiement {
     private Long paymentAccountId;
 
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="client_id", referencedColumnName="id")
-    @JsonBackReference
+    @JsonBackReference(value = "client-compte")
     private Client client;
+
 
     private double accountBalance;
     private LocalDate createdDate;
@@ -39,8 +42,8 @@ public class ComptePaiement {
 
    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JoinColumn(name = "paymentAccountId")
-   @OneToMany(mappedBy = "comptePaiement", cascade = CascadeType.ALL, orphanRemoval = true)
-   @JsonManagedReference
+   @OneToMany(mappedBy = "comptePaiement", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "comptePaiement-transaction")
    private List<Transaction> transactions = new ArrayList<>();
 
 

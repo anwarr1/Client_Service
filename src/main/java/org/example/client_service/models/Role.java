@@ -2,6 +2,7 @@ package org.example.client_service.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.example.client_service.models.Permission;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;

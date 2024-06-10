@@ -52,4 +52,8 @@ public class ClientService {
     public Client ClientExist(String username,String password){
         return clientRepository.findByEmailAndPassword(username,password);
     }
+
+    public Client updateClient(Client client) {
+        return clientRepository.save(client);
+    }
 }

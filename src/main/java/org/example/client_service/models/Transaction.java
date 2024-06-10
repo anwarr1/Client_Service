@@ -1,6 +1,12 @@
 package org.example.client_service.models;
+
+
+
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
         import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,15 +26,19 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "factureId")
-    @JsonBackReference
+    @JsonBackReference(value = "facture-transaction")
     private Facture facture;
     private double montant;
     private Date date;
     private String status;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "compte_paiement_id") // Correct usage of @JoinColumn
+
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "compte_paiement_id")
+    @JsonBackReference(value = "comptePaiement-transaction")
     private ComptePaiement comptePaiement;
 }
