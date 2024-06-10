@@ -31,7 +31,6 @@ public class AgentService {
     public String createClient(Client client) throws IOException {
         String pwd= GeneratePassword.generateTemporaryPassword();
         client.setPassword(passwordEncoder.encode(pwd));
-
         smsSender.sendSms(client.getTelephone(), "your temp password is : " + client.getPassword());
         System.out.println(pwd);
         clientRepository.save(client);

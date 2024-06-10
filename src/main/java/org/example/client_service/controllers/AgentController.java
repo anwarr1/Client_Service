@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/agent")
@@ -37,12 +39,11 @@ public class AgentController {
 
     //Tested
     @PostMapping("/create-client")
-
-    public String createClient(
-            @RequestBody Client client) throws IOException {
-             String pwd = agentService.createClient(client);
-            return pwd;
-
+    public ResponseEntity<Map<String, String>> createClient(@RequestBody Client client) throws IOException {
+        String pwd = agentService.createClient(client);
+        Map<String, String> response = new HashMap<>();
+        response.put("password", pwd);
+        return ResponseEntity.ok(response);
     }
 // ouverture compte payement
     @PostMapping("/sendPostRequest")

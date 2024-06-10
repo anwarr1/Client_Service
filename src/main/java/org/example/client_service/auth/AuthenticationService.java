@@ -60,6 +60,7 @@ public class AuthenticationService {
             System.out.println(request);
             System.out.println(request.getEmail());
 
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
@@ -73,11 +74,15 @@ public class AuthenticationService {
             System.out.println("USER  : " + user);
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
+            var firsttime = user.getIs_first_time();
+            var email = user.getEmail();
             revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
+                    .firstime(firsttime)
+                    .email(email)
                     .build();
         } catch (Exception e) {
             e.printStackTrace();
