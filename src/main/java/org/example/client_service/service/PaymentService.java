@@ -2,10 +2,7 @@ package org.example.client_service.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.client_service.models.BankAccount;
-import org.example.client_service.models.ComptePaiement;
-import org.example.client_service.models.Impaye;
-import org.example.client_service.models.Transaction;
+import org.example.client_service.models.*;
 import org.example.client_service.enums.TransactionStatus;
 import org.example.client_service.models.servicesAgence.Donation;
 import org.example.client_service.models.servicesAgence.Facture;
@@ -40,7 +37,7 @@ public class PaymentService {
     @Autowired
     private DonationRepository donationRepository;
 
-    public Transaction confirmerPaiementAcc(Long impayeId, String phoneNumber) throws IllegalArgumentException {
+    public Facture confirmerPaiementAcc(Long impayeId, String phoneNumber) throws IllegalArgumentException {
         System.out.println("phoneNumber: " + phoneNumber + "impayeId: " + impayeId);
         ComptePaiement comptePaiement = comptePaiementRepository.findByClientTel(phoneNumber);
         Optional<Impaye> impaye = impayeRepository.findById(impayeId);
@@ -92,12 +89,12 @@ public class PaymentService {
             impayeRepository.save(impaye.get());
             bankAccountRepository.save(bankAccount);
 
-            return transaction;
+            return facture;
         }
         return null;
     }
 
-    public Transaction makeDonation(String phoneNumber, double donationAmount, Long id) throws IllegalArgumentException {
+    public DonationFactureResponse makeDonation(String phoneNumber, double donationAmount, Long id) throws IllegalArgumentException {
         System.out.println("phoneNumber: " + phoneNumber + " donationAmount: " + donationAmount + " id: " + id);
         ComptePaiement comptePaiement = comptePaiementRepository.findByClientTel(phoneNumber);
         Optional<Donation> donation = donationRepository.findById(id);
@@ -145,12 +142,12 @@ public class PaymentService {
             comptePaiementRepository.save(comptePaiement);
             bankAccountRepository.save(bankAccount);
 
-            return transaction;
+            return new DonationFactureResponse(donation.get(), facture);
         }
         return null;
     }
 
-    public Transaction Recharge(String phoneNumber, double montant, Long id) throws IllegalArgumentException {
+    public RechargeFactureResponse Recharge(String phoneNumber, double montant, Long id) throws IllegalArgumentException {
         System.out.println("phoneNumber: " + phoneNumber + " donationAmount: " + montant + " id: " + id);
         ComptePaiement comptePaiement = comptePaiementRepository.findByClientTel(phoneNumber);
         BankAccount bankAccount = bankAccountRepository.findByClientTel(phoneNumber);
@@ -199,7 +196,7 @@ public class PaymentService {
             comptePaiementRepository.save(comptePaiement);
             bankAccountRepository.save(bankAccount);
 
-            return transaction;
+            return new RechargeFactureResponse(recharge.get(), facture);
         }
         return null;
     }

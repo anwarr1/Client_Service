@@ -20,4 +20,6 @@ public class AuthenticationResponse {
   private boolean firstime;
   @JsonProperty("email")
   private String email;
+  @JsonProperty("telephone")
+  private String telephone;
 }

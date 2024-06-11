@@ -76,6 +76,7 @@ public class AuthenticationService {
             var refreshToken = jwtService.generateRefreshToken(user);
             var firsttime = user.getIs_first_time();
             var email = user.getEmail();
+            var telephone = user.getTelephone();
             revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
             return AuthenticationResponse.builder()
@@ -83,6 +84,7 @@ public class AuthenticationService {
                     .refreshToken(refreshToken)
                     .firstime(firsttime)
                     .email(email)
+                    .telephone(telephone)
                     .build();
         } catch (Exception e) {
             e.printStackTrace();

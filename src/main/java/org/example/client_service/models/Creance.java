@@ -31,4 +31,5 @@ public class Creance {
     @OneToMany(mappedBy = "creance", fetch=FetchType.LAZY)
     @JsonManagedReference(value = "creance-impaye")
     private List<Impaye> impayes;
+    private String type;
 }

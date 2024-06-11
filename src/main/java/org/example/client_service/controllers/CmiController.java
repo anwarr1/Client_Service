@@ -2,6 +2,7 @@ package org.example.client_service.controllers;
 
 
 import jakarta.ws.rs.Path;
+import org.example.client_service.models.Client;
 import org.example.client_service.models.Creancier;
 import org.example.client_service.models.Form;
 import org.example.client_service.models.Impaye;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -55,5 +57,16 @@ public class CmiController {
     @PostMapping("/confirmePayer/{impayeId}/{phoneNumber}")
     public boolean confirmePayer(@PathVariable Long impayeId, @PathVariable String phoneNumber) {
         return cmiService.confirmePayer(impayeId, phoneNumber);
+    }
+
+    @PostMapping("/verifyAndAssociateBankAccount/{clientId}/{accountNumber}")
+    public ResponseEntity<?> verifyAndAssociateBankAccount(@PathVariable Long clientId, @PathVariable String accountNumber) {
+        Optional<Client> clientOptional = cmiService.verifyAndAssociateBankAccount(clientId, accountNumber);
+
+        if (clientOptional.isPresent()) {
+            return ResponseEntity.ok(clientOptional.get());
+        } else {
+            return ResponseEntity.badRequest().body("Bank account is already associated with a client or client not found");
+        }
     }
 }

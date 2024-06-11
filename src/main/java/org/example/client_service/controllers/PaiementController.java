@@ -2,8 +2,9 @@ package org.example.client_service.controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.client_service.models.Client;
+import org.example.client_service.models.DonationFactureResponse;
 import org.example.client_service.models.OTPToken;
-import org.example.client_service.models.Transaction;
+import org.example.client_service.models.RechargeFactureResponse;
 import org.example.client_service.models.servicesAgence.Donation;
 import org.example.client_service.models.servicesAgence.Facture;
 import org.example.client_service.models.servicesAgence.Recharge;
@@ -43,7 +44,7 @@ public class PaiementController {
     public ResponseEntity<?> confirmerPaiement(@RequestParam("id_impaye") Long factureId, @RequestParam("phone") String phoneNumber) {
         try {
             System.out.println("+"+"phoneNumber: " + phoneNumber + "factureId: " + factureId);
-            Transaction transaction = paymentService.confirmerPaiementAcc(factureId,"+"+phoneNumber);
+            Facture transaction = paymentService.confirmerPaiementAcc(factureId,"+"+phoneNumber);
             return ResponseEntity.ok(transaction);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -53,7 +54,7 @@ public class PaiementController {
     public ResponseEntity<?> confirmerDonation(@RequestParam("montant") double montant, @RequestParam("phone") String phoneNumber,@RequestParam("id") Long id) {
         try {
             System.out.println("+"+"phoneNumber: " + phoneNumber );
-            Transaction transaction = paymentService.makeDonation("+"+phoneNumber,montant,id);
+            DonationFactureResponse transaction = paymentService.makeDonation("+"+phoneNumber,montant,id);
             return ResponseEntity.ok(transaction);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -63,7 +64,7 @@ public class PaiementController {
     public ResponseEntity<?> confirmerRecharge(@RequestParam("montant") double montant, @RequestParam("phone") String phoneNumber,@RequestParam("id") Long id) {
         try {
             System.out.println("+"+"phoneNumber: " + phoneNumber );
-            Transaction transaction = paymentService.Recharge("+"+phoneNumber,montant,id);
+            RechargeFactureResponse transaction = paymentService.Recharge("+"+phoneNumber,montant,id);
             return ResponseEntity.ok(transaction);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -12,11 +12,12 @@ import java.util.Optional;
 @Service
 public class CmiService {
 
-    public CmiService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository,ClientRepository clientRepository) {
+    public CmiService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository,ClientRepository clientRepository,BankAccountRepository bankAccountRepository,ComptePaiementRepository comptePaiementRepository,TransactionRepository transactionRepository,FormRepository formRepository,FactureRepository factureRepository) {
         this.creancierRepository = creancierRepository;
         this.creanceRepository = creanceRepository;
         this.impayeRepository = impayeRepository;
         this.clientRepository = clientRepository;
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     private CreancierRepository creancierRepository;
@@ -33,6 +34,7 @@ public class CmiService {
     private ClientRepository clientRepository;
 
     private ComptePaiementRepository comptePaiementRepository;
+    private BankAccountRepository bankAccountRepository;
 
 
     public List<Creancier> getAllCreanciers() {
@@ -80,5 +82,26 @@ public class CmiService {
         }
 
         return false;
+    }
+    public Optional<Client> verifyAndAssociateBankAccount(Long clientId, String accountNumber) {
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        Optional<BankAccount> bankAccountOptional = bankAccountRepository.findByAccountNumber(accountNumber);
+
+        if (clientOptional.isPresent() && bankAccountOptional.isPresent()) {
+            Client client = clientOptional.get();
+            BankAccount bankAccount = bankAccountOptional.get();
+
+            if (bankAccount.getClient() == null) {
+                client.getBankAccounts().add(bankAccount);
+                bankAccount.setClient(client);
+                clientRepository.save(client);
+                bankAccountRepository.save(bankAccount);
+                return Optional.of(client);
+            } else {
+                return Optional.empty(); // Compte bancaire déjà associé à un client
+            }
+        }
+
+        return Optional.empty(); // Client ou compte bancaire non trouvé
     }
 }
